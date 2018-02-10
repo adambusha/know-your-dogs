@@ -1,3 +1,5 @@
+const axios = require('axios')
+
 module.exports = {
   /*
   ** Headers of the page
@@ -33,6 +35,17 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
+    }
+  },
+
+  generate: {
+    routes: function () {
+      return axios.get('https://dog.ceo/api/breeds/list')
+      .then((res) => {
+        return res.data.map((breed) => {
+          return '/dogs/' + breed
+        })
+      })
     }
   }
 }
